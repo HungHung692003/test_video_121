@@ -15,7 +15,6 @@ import CustomRequest from '../type'
 import { TokenPayload } from '../models/requests/Users.Requests'
 import { UserVerifyStatus } from '../constants/enums'
 import { REGEX_USERNAME } from '../constants/regex'
-import { NOTFOUND } from 'dns'
 
 export const LoginValidator = validate(
   checkSchema({

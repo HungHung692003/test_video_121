@@ -1,6 +1,6 @@
 import { JwtPayload } from 'jsonwebtoken'
 import { TokenType } from '../../constants/enums'
-import {ParamsDictionary} from 'express-serve-static-core'
+import { ParamsDictionary } from 'express-serve-static-core'
 export interface RegisterReqBody {
   name: string
   email: string

@@ -3,16 +3,16 @@ import DatabaseService from './services/database.services'
 import UserRouter from './routes/users.routes'
 import express from 'express'
 import { defaultErrorHandler } from './middlewares/ErrorHandler'
-import path from 'path'
-import cors from 'cors' // Import cors
+import cors from 'cors'
 import mediasRouter from './routes/medias.routes'
+import { config } from 'dotenv'
+import staticRouter from './routes/static.routes'
 
+config()
+//database
+DatabaseService.connect()
 const app = express()
-// Sử dụng cookie-parser middleware
-
-const port = 3000
-
-console.log(process.argv)
+const port = process.env.PORT || 3000
 
 initFolder() // nếu trong server chưa có file " uploads " chỉ cần chạy lại server thì tạo lại 1 file mới
 
@@ -22,18 +22,19 @@ app.use(
     credentials: true // Cho phép gửi cookie cùng với request
   })
 )
- 
+
 app.use(express.json())
 
 // Middleware để phục vụ các file tĩnh
-app.use(express.static(path.join(__dirname, 'build')))
+//app.use(express.static(path.join(__dirname, 'build')))
+app.use(express.json())
 
 app.use('/api', UserRouter)
 
 app.use('/medias', mediasRouter)
 
-//database
-DatabaseService.connect()
+//router ảnh
+app.use('/static', staticRouter)
 
 app.use(defaultErrorHandler)
 
